@@ -197,10 +197,8 @@ curl -s -X POST $BASE/api/v1/workflows -H 'Content-Type: application/json' -d \
 curl -s $BASE/api/v1/metrics/summary | python3 -m json.tool
 ```
 
-See [`INTERVIEW_WALKTHROUGH.md`](INTERVIEW_WALKTHROUGH.md) for the full
-API-by-API and scenario-by-scenario walkthrough intended for the interview
-panel, and [`03-scenarios.md`](03-scenarios.md) for the original scenario
-design.
+See [`docs/scenarios.md`](docs/scenarios.md) for the full scenario-by-scenario
+design and the demo script intended for the interview panel.
 
 ---
 

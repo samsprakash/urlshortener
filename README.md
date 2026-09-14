@@ -9,9 +9,9 @@ by this assignment — decomposition, non-linear orchestration, governance,
 retries/rollback, audit, re-planning — lives in the orchestration layer
 (`com.example.agentic.orchestration`, `.agent`, `.policy`, `.approval`,
 `.audit`) and is demonstrated *through* the shortener across three scenarios:
-Greenfield, Brownfield, Ambiguous. See [`01-architecture.md`](01-architecture.md),
-[`02-decisions.md`](02-decisions.md), [`03-scenarios.md`](03-scenarios.md), and
-[`04-execution-plan.md`](04-execution-plan.md) for the original design docs
+Greenfield, Brownfield, Ambiguous. See [`docs/architecture.md`](docs/architecture.md),
+[`docs/decisions.md`](docs/decisions.md), [`docs/scenarios.md`](docs/scenarios.md), and
+[`docs/execution-plan.md`](docs/execution-plan.md) for the original design docs
 this implementation follows.
 
 ---
@@ -151,7 +151,7 @@ Success rate, retry/rollback/replan counts, average approval wait time
 | Audit-grade observability | `AuditEvent` + `AuditService`, written in the same transaction as the state change it describes |
 | Reliability metrics | `MetricsService` (Micrometer) + `/api/v1/metrics/summary` |
 | Dynamic re-planning | `ImpactAnalyzer` + `Replanner`, shared by Brownfield impact analysis and the Ambiguous clarify flow |
-| Greenfield / Brownfield / Ambiguous | `WorkflowGraphs` + `ScenarioRunner` — see [`03-scenarios.md`](03-scenarios.md) |
+| Greenfield / Brownfield / Ambiguous | `WorkflowGraphs` + `ScenarioRunner` — see [`docs/scenarios.md`](docs/scenarios.md) |
 
 ---
 
@@ -173,7 +173,7 @@ Artifact / Decision / Approval / AuditEvent store  →  PostgreSQL (Flyway V1–
 - **Orchestrator owns control; agents only propose** (ADR-6). `Agent.execute()`
   returns an `AgentResult`; `WorkflowEngine` is the only thing that persists
   workflow/node/artifact/decision state.
-- **Risk → autonomy mapping** (01-architecture.md §4): LOW/MEDIUM execute
+- **Risk → autonomy mapping** (docs/architecture.md §4): LOW/MEDIUM execute
   autonomously (MEDIUM audited); HIGH requires human approval; CRITICAL
   requires approval + security review. Enforced independently by three
   `Policy` beans (`ChangeControlPolicy`, `SecurityPolicy`, `ReleasePolicy`),
@@ -197,7 +197,7 @@ Artifact / Decision / Approval / AuditEvent store  →  PostgreSQL (Flyway V1–
   test suite reproducible.
 
 Full trade-off reasoning, including anticipated interviewer Q&A, is in
-[`02-decisions.md`](02-decisions.md).
+[`docs/decisions.md`](docs/decisions.md).
 
 ---
 
@@ -227,7 +227,7 @@ tests (`WorkflowOrchestrationIntegrationTest`, `UrlShortenerIntegrationTest`).
 Given the assessment's time window, I prioritized the orchestration engine —
 dependency graph, state machine, policy/approval, retry/rollback, audit,
 re-planning — over breadth of the URL-shortener feature set and over the
-Kafka brownfield extension (Scenario 2b in `03-scenarios.md`), which is
+Kafka brownfield extension (Scenario 2b in `docs/scenarios.md`), which is
 designed for (the `EventPublisher` seam is real and already used by
 `ClickTrackingService`) but not implemented as a second `KafkaEventPublisher`.
 I intentionally did not implement authentication, custom aliases, or
