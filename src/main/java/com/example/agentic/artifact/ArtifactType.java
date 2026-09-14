@@ -1,0 +1,13 @@
+package com.example.agentic.artifact;
+
+public enum ArtifactType {
+    REQUIREMENT_SPEC,
+    IMPACT_ANALYSIS,
+    ARCHITECTURE_SPEC,
+    IMPLEMENTATION_PLAN,
+    IMPLEMENTATION,
+    TEST_REPORT,
+    SECURITY_REPORT,
+    DOCUMENTATION,
+    RELEASE_MANIFEST
+}
